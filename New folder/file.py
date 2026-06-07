@@ -1,17 +1,13 @@
 import json
 
-# Biến toàn cục lưu danh sách sinh viên trên RAM
 students = []
 
-# =================================================
-# CÁC HÀM BỔ TRỢ (Dùng chung để code gọn hơn)
-# =================================================
 
 def get_avg_score(student):
     return student['avg_score']
 
 def get_name(student):
-    # Tách chuỗi tên bằng khoảng trắng và lấy phần tử cuối cùng (Tên chính) để sắp xếp
+
     return student['name'].split()[-1]
 
 def get_valid_score(subject_name):
@@ -27,34 +23,32 @@ def get_valid_score(subject_name):
             print("Lỗi: Bạn vừa nhập chữ hoặc ký tự lạ. Vui lòng nhập một con số!")
 
 
-# =================================================
-# CÁC HÀM CHỨC NĂNG CHÍNH
-# =================================================
 
-# --- CHỨC NĂNG 1: HIỂN THỊ DANH SÁCH (IN BẢNG NGAY NGẮN) ---
+
+# HIỂN THỊ DANH SÁCH 
 def display_students():
     print("\n--- DANH SÁCH SINH VIÊN HIỆN TẠI ---")
     if len(students) == 0:
         print("Danh sách hiện đang trống!")
         return
         
-    # In tiêu đề bảng (căn lề bằng f-string cơ bản)
+
     print("-" * 80)
     print(f"| {'Mã SV':<7} | {'Họ và Tên':<20} | {'Toán':<5} | {'Lý':<5} | {'Hóa':<5} | {'ĐTB':<5} | {'Xếp loại':<10} |")
     print("-" * 80)
     
-    # In dữ liệu từng sinh viên
+
     for student in students:
         print(f"| {student['id']:<7} | {student['name']:<20} | {student['math']:<5.1f} | {student['physics']:<5.1f} | {student['chemistry']:<5.1f} | {student['avg_score']:<5.2f} | {student['grade']:<10} |")
     print("-" * 80)
 
 
-# --- CHỨC NĂNG 2: THÊM MỚI SINH VIÊN ---
+#  THÊM MỚI SINH VIÊN 
 def add_student():
     print("\n--- THÊM MỚI SINH VIÊN ---")
     student_id = input("Nhập Mã SV mới: ").strip().upper()
     
-    # Bẫy lỗi: Mã SV không được trùng
+
     for student in students:
         if student['id'] == student_id:
             print("Lỗi: Mã sinh viên này đã tồn tại trên hệ thống!")
@@ -62,7 +56,7 @@ def add_student():
             
     name = input("Nhập Họ và Tên sinh viên: ").strip()
     
-    # Gọi hàm bổ trợ để nhập điểm an toàn
+
     math_score = get_valid_score("Toán")
     physics_score = get_valid_score("Lý")
     chemistry_score = get_valid_score("Hóa")
@@ -88,7 +82,7 @@ def add_student():
     print("Thành công: Đã tiếp nhận thêm sinh viên mới!")
 
 
-# --- CHỨC NĂNG 3: CẬP NHẬT THÔNG TIN ---
+#  CẬP NHẬT THÔNG TIN 
 def update_student():
     print("\n--- CẬP NHẬT THÔNG TIN SINH VIÊN ---")
     search_id = input("Nhập Mã SV cần điều chỉnh điểm: ").strip().upper()
@@ -117,7 +111,7 @@ def update_student():
     print("Lỗi: Không tìm thấy sinh viên nào có mã vừa nhập.")
 
 
-# --- CHỨC NĂNG 4: XÓA SINH VIÊN ---
+#  XÓA SINH VIÊN 
 def delete_student():
     print("\n--- XÓA SINH VIÊN KHỎI HỆ THỐNG ---")
     search_id = input("Nhập Mã SV muốn xóa: ").strip().upper()
@@ -135,7 +129,7 @@ def delete_student():
     print("Lỗi: Mã sinh viên không tồn tại.")
 
 
-# --- CHỨC NĂNG 5: TÌM KIẾM SINH VIÊN ---
+# TÌM KIẾM SINH VIÊN 
 def search_student():
     print("\n--- TÌM KIẾM SINH VIÊN ---")
     keyword = input("Nhập Mã SV hoặc Tên cần tìm kiếm: ").strip().lower()
@@ -150,7 +144,7 @@ def search_student():
         print("Không tìm thấy kết quả nào phù hợp.")
 
 
-# --- CHỨC NĂNG 6: SẮP XẾP DANH SÁCH ---
+#  SẮP XẾP DANH SÁCH 
 def sort_students():
     print("\n--- SẮP XẾP DANH SÁCH SINH VIÊN ---")
     print("1. Sắp xếp theo Điểm TB giảm dần")
@@ -167,7 +161,7 @@ def sort_students():
         print("Lỗi: Lựa chọn tính năng sắp xếp không hợp lệ!")
 
 
-# --- CHỨC NĂNG 7: THỐNG KÊ ĐIỂM TB ---
+# THỐNG KÊ ĐIỂM TB
 def statistics():
     print("\n--- THỐNG KÊ ĐIỂM SỐ HỌC LỰC ---")
     excellent = 0
@@ -187,7 +181,7 @@ def statistics():
     print(f"- Sinh viên loại Yếu: {weak}")
 
 
-# --- CHỨC NĂNG 8: LIỆT KÊ ĐIỂM CAO NHẤT / THẤP NHẤT ---
+# LIỆT KÊ ĐIỂM CAO NHẤT / THẤP NHẤT 
 def find_min_max():
     print("\n--- SINH VIÊN CÓ ĐIỂM TB CAO NHẤT VÀ THẤP NHẤT ---")
     if len(students) == 0:
@@ -212,7 +206,7 @@ def find_min_max():
             print("  - Danh tính:", student['name'])
 
 
-# --- CHỨC NĂNG 9: PHÂN LOẠI HỌC LỰC ---
+#  PHÂN LOẠI HỌC LỰC 
 def classify_students():
     print("\n--- DANH SÁCH CHI TIẾT THEO PHÂN LOẠI HỌC LỰC ---")
     excellent_group = []
@@ -243,20 +237,17 @@ def classify_students():
     for student in weak_group: print("  ->", student['name'], f"- ĐTB: {student['avg_score']}")
 
 
-# --- CHỨC NĂNG 10: THOÁT VÀ LƯU DỮ LIỆU ---
+# THOÁT VÀ LƯU DỮ LIỆU 
 def save_and_exit():
     with open('data.json', 'w', encoding='utf-8') as file:
         json.dump(students, file, indent=4, ensure_ascii=False)
     print("\nĐã lưu toàn bộ dữ liệu vào file data.json thành công!")
 
 
-# =================================================
-# VÒNG LẶP CHƯƠNG TRÌNH CHÍNH (MAIN)
-# =================================================
+
 def main():
     global students
     
-    # Đọc dữ liệu 1 lần duy nhất khi khởi động chương trình
     try:
         with open('data.json', 'r', encoding='utf-8') as file:
             students = json.load(file)
@@ -298,6 +289,6 @@ def main():
             case _:
                 print("Lỗi: Lựa chọn không hợp lệ. Vui lòng nhập từ 1 đến 10!")
 
-# Kích hoạt chạy chương trình
+
 if __name__ == "__main__":
     main()
